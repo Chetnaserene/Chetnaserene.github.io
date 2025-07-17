@@ -3,852 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Nutritionist Diet Planner</title>
-    <!-- Tailwind CSS for styling -->
+    <title>PcosAyurveda.com - Interactive Growth Blueprint</title>
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: The SPA is structured as an interactive, phased dashboard with four main sections corresponding to the report's phases: Foundation, Content, Traffic, and Monetization. Navigation is handled by a top tab bar, allowing users to focus on one phase at a time, which is more user-friendly than a long scroll. This design was chosen to transform a static linear plan into an actionable tool. Phase 1 is an interactive checklist for tracking progress. Phase 2 uses a visual "Hub & Spoke" diagram to clarify the content strategy. Phase 3 uses a clean card layout for traffic tactics. Phase 4 visualizes the business model with a CSS funnel diagram and an interactive Chart.js chart to motivate the user. This structure breaks down a complex strategy into manageable, interactive steps, prioritizing clarity and user engagement. -->
+    <!-- Visualization & Content Choices: 
+        - Phase 1 (Foundation): Report Info -> One-time setup tasks. Goal -> Inform & Track. Viz/Method -> Interactive Checklist (HTML details/summary + JS). Interaction -> Toggling tasks to reveal details and mark completion. Justification -> More engaging than a static list, provides a sense of accomplishment.
+        - Phase 2 (Content): Report Info -> Hub and Spoke model. Goal -> Organize & Explain Strategy. Viz/Method -> Visual Diagram (HTML/Tailwind Flexbox). Interaction -> Hovering on spoke cards for emphasis. Justification -> Visually clarifies the relationship between pillar and cluster content.
+        - Phase 3 (Traffic): Report Info -> Promotion tactics. Goal -> Inform. Viz/Method -> Two-column card layout with icons (Unicode). Interaction -> Simple hover effects. Justification -> Clean, scannable presentation of actions.
+        - Phase 4 (Monetization): Report Info -> Funnel and revenue streams. Goal -> Explain Business Model & Motivate. Viz/Method -> CSS Funnel Diagram + Chart.js Bar Chart. Interaction -> Chart animation and tooltips. Justification -> Simplifies the earning process and visualizes potential, making it tangible. Library -> Chart.js.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-        }
-        .main-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        @media print {
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-image: none; }
-            .no-print { display: none !important; }
-            .printable-area { box-shadow: none !important; margin: 0 !important; padding: 0 !important; max-width: 100% !important; border: none !important; }
-        }
-        .planner-table th, .planner-table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
-        .planner-table th { background-color: #f9fafb; }
-        .planner-table td { vertical-align: top; background-color: #fff; transition: background-color 0.2s; }
-        .planner-table td.has-recipe:hover { background-color: #eff6ff; cursor: pointer; }
-        .input-field { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.375rem; transition: border-color 0.2s; }
-        .input-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 1px #3b82f6; }
-        #loading-modal, #recipe-modal, #share-modal, #error-modal { background-color: rgba(0, 0, 0, 0.6); }
-        .loader { border-top-color: #3498db; -webkit-animation: spinner 1.5s linear infinite; animation: spinner 1.5s linear infinite; }
-        @-webkit-keyframes spinner { 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .modal-content { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .water-glass { cursor: pointer; transition: color 0.2s; }
-        .water-glass.filled { color: #3b82f6 !important; }
-        .calendar-day { min-height: 100px; }
+        body { font-family: 'Inter', sans-serif; background-color: #F8F6F4; }
+        h1, h2, h3, h4, .font-display { font-family: 'Playfair Display', serif; }
+        .brand-green { color: #3A5A40; }
+        .brand-green-bg { background-color: #3A5A40; }
+        .brand-tan { color: #A89A8E; }
+        .brand-border { border-color: #A89A8E; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { background-color: #3A5A40; color: white; }
+        .nav-button:not(.active):hover { background-color: #e2dcd6; }
+        .task-checkbox { transform: scale(1.2); accent-color: #3A5A40; }
+        .details-marker { transition: transform 0.2s ease; }
+        details[open] .details-marker { transform: rotate(90deg); }
+        .spoke-card { transition: all 0.3s ease; border-left-width: 4px; border-color: #A89A8E; }
+        .spoke-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); border-color: #3A5A40; }
+        .funnel-step { clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
     </style>
 </head>
-<body class="p-4 sm:p-6">
-    <!-- Modals -->
-    <div id="loading-modal" class="no-print fixed inset-0 z-50 flex-col items-center justify-center hidden">
-        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 mb-4"></div>
-        <h2 id="loading-text" class="text-center text-white text-xl font-semibold"></h2>
-    </div>
-    <div id="error-modal" class="no-print fixed inset-0 z-50 flex items-center justify-center hidden p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md">
-            <div class="p-6 text-center">
-                <div class="text-red-500 text-5xl mb-4"><i class="fas fa-exclamation-circle"></i></div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">An Error Occurred</h2>
-                <p id="error-message" class="text-gray-600 mb-6"></p>
-                <button onclick="closeErrorModal()" class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">Close</button>
-            </div>
-        </div>
-    </div>
-    <div id="recipe-modal" class="no-print fixed inset-0 z-40 flex items-center justify-center hidden p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 id="recipe-title" class="text-2xl font-bold text-gray-800">Recipe</h2>
-                    <button onclick="closeRecipeModal()" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
-                </div>
-                <div id="recipe-content" class="text-gray-600 space-y-4 prose max-w-none"></div>
-            </div>
-        </div>
-    </div>
-    <div id="share-modal" class="no-print fixed inset-0 z-40 flex items-center justify-center hidden p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-800">Share Your Plan</h2>
-                    <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
-                </div>
-                <p class="text-gray-600 mb-4">Copy the text below to share a summary of your new meal plan!</p>
-                <textarea id="share-text" class="w-full h-48 p-3 border border-gray-300 rounded-lg bg-gray-50" readonly></textarea>
-                <button onclick="copyShareText()" class="mt-4 w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors">Copy to Clipboard</button>
-            </div>
-        </div>
-    </div>
+<body class="text-gray-800">
 
-    <!-- Main Content -->
-    <div class="printable-area main-container max-w-7xl mx-auto rounded-xl shadow-2xl p-6 sm:p-10 border border-gray-200">
-        <!-- Header Section -->
-        <div class="flex flex-wrap justify-between items-start mb-6 gap-4">
-            <div>
-                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">AI Nutrition Dashboard</h1>
-                <p class="text-gray-600 mt-1">Your personalized, intelligent meal planning assistant.</p>
-                <div id="auth-container" class="mt-2 text-gray-600">Loading user...</div>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="window.print()" class="no-print bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-600 transition-colors">Print</button>
-                <button id="share-plan-btn" class="no-print bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-indigo-600 transition-colors hidden">Share</button>
-                <button id="save-plan-btn" class="no-print bg-green-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-green-600 transition-colors hidden">Save Plan</button>
-            </div>
-        </div>
+    <div class="container mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold brand-green">Your Interactive Growth Blueprint</h1>
+            <p class="text-lg brand-tan mt-2">The SEO & Monetization Plan for PcosAyurveda.com</p>
+        </header>
 
-        <!-- User Profile and Goals Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 border-t border-b border-gray-200 py-6">
-            <div>
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Client Profile</h2>
-                <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-gray-600">
-                    <label class="font-medium">Name:</label> <input id="client-name" type="text" class="input-field" placeholder="e.g., Jane Doe">
-                    <label class="font-medium">Age:</label> <input id="client-age" type="number" class="input-field" placeholder="e.g., 32">
-                    <label class="font-medium">Height (cm):</label> <input id="client-height" type="number" class="input-field" placeholder="e.g., 165">
-                    <label class="font-medium">Weight (kg):</label> <input id="client-weight" type="number" class="input-field" placeholder="e.g., 70">
-                    <label class="font-medium">Medical Conditions:</label> <input id="client-conditions" type="text" class="input-field" placeholder="e.g., None">
-                    <label class="font-medium">Allergies:</label> <input id="client-allergies" type="text" class="input-field" placeholder="e.g., None">
-                    <label class="font-medium">Dietary Preference:</label> <input id="client-preference" type="text" class="input-field" placeholder="e.g., Vegetarian, Ayurvedic">
-                </div>
-            </div>
-            <div>
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Health Goals & Targets</h2>
-                <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-gray-600">
-                    <label class="font-medium">Primary Goal:</label> <input id="client-goal" type="text" class="input-field" placeholder="e.g., Weight loss">
-                    <label class="font-medium">Daily Calorie Target:</label> <input id="client-calories" type="number" class="input-field" placeholder="e.g., 1800">
-                    <label class="font-medium">Protein (g):</label> <input id="client-protein" type="number" class="input-field" placeholder="e.g., 90">
-                    <label class="font-medium">Carbs (g):</label> <input id="client-carbs" type="number" class="input-field" placeholder="e.g., 150">
-                </div>
-            </div>
-        </div>
+        <!-- Navigation -->
+        <nav id="nav-bar" class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
+            <button data-phase="phase1" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full active">✅ Phase 1: Foundation</button>
+            <button data-phase="phase2" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">✍️ Phase 2: Content</button>
+            <button data-phase="phase3" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">🚀 Phase 3: Traffic</button>
+            <button data-phase="phase4" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">💰 Phase 4: Monetization</button>
+        </nav>
 
-        <!-- Daily Trackers Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-            <div>
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Daily Health Checklist</h2>
-                <div class="flex gap-2 mb-3">
-                    <input id="todo-input" type="text" class="input-field flex-grow" placeholder="e.g., 30-minute walk">
-                    <button id="add-todo-btn" class="bg-blue-500 text-white font-semibold px-4 rounded-lg hover:bg-blue-600 transition-colors">+</button>
-                </div>
-                <ul id="todo-list" class="space-y-2"></ul>
-            </div>
-            <div class="p-4 bg-gray-50 rounded-lg">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Daily Hydration</h2>
-                <div id="water-tracker" class="flex flex-wrap items-center gap-2 text-3xl text-gray-300 mt-2"></div>
-            </div>
-            <div class="p-4 bg-gray-50 rounded-lg">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Daily Trackers</h2>
-                <label for="activity-input" class="font-medium text-gray-600">Physical Activity (minutes):</label>
-                <input id="activity-input" type="number" min="0" class="input-field mt-1 mb-4" placeholder="e.g., 30">
-                <label for="sleep-input" class="font-medium text-gray-600">Sleep (hours):</label>
-                <input id="sleep-input" type="number" step="0.5" min="0" class="input-field mt-1" placeholder="e.g., 7.5">
-            </div>
-        </div>
+        <main id="app-content">
+            <!-- Phase 1: Foundation -->
+            <section id="phase1" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold brand-green mb-2">Phase 1: The Technical SEO Foundation</h2>
+                <p class="text-gray-600 mb-6">This is your one-time setup to ensure Google can find, crawl, and understand your blog. Complete these essential tasks to build a strong base for all future growth. Interact with the checklist below to track your progress.</p>
+                <div id="foundation-checklist" class="space-y-4"></div>
+            </section>
 
-        <!-- Meal Planner Section -->
-        <div class="mb-10">
-            <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-                <h2 class="text-2xl font-bold text-gray-800">Weekly Meal Planner</h2>
-                <button id="generate-plan-btn" class="no-print bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-all duration-300 flex items-center gap-2">
-                    <span class="text-2xl">✨</span> Generate Full Meal Plan
-                </button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse planner-table">
-                    <thead>
-                        <tr>
-                            <th class="w-1/8"></th>
-                            <th class="w-1/8 text-center font-semibold">Monday</th>
-                            <th class="w-1/8 text-center font-semibold">Tuesday</th>
-                            <th class="w-1/8 text-center font-semibold">Wednesday</th>
-                            <th class="w-1/8 text-center font-semibold">Thursday</th>
-                            <th class="w-1/8 text-center font-semibold">Friday</th>
-                            <th class="w-1/8 text-center font-semibold">Saturday</th>
-                            <th class="w-1/8 text-center font-semibold">Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody id="meal-plan-body"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Analytics Section -->
-        <div class="mb-10 border-t border-gray-200 pt-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Your Health Journey</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="p-4 bg-gray-50 rounded-lg">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Last 7 Days Analysis</h3>
-<!-- CODE CORRECTION: Added a wrapper div with a defined height (h-72) and relative positioning. -->
-<!-- This fixes the visual glitch where the chart stretches upon scrolling. -->
-<div class="relative aspect-video">
-    <canvas id="weeklyAnalysisChart"></canvas>
-</div>
-                    <div id="weekly-summary-container" class="mt-4">
-                        <button id="analyze-week-btn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-purple-600 transition-colors">Analyze My Week</button>
-                        <div id="weekly-summary-content" class="mt-3 p-3 bg-purple-50 rounded-lg text-sm text-gray-700 hidden"></div>
-                    </div>
-                </div>
-                <div class="p-4 bg-gray-50 rounded-lg">
-                    <div class="flex justify-between items-center mb-4">
-                        <button id="prev-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-left"></i></button>
-                        <h3 id="month-year-header" class="text-xl font-semibold text-gray-700"></h3>
-                        <button id="next-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                    <div class="grid grid-cols-7 gap-1 text-center font-medium text-gray-500 mb-2">
-                        <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
-                    </div>
-                    <div id="monthly-calendar-grid" class="grid grid-cols-7 gap-1"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="module">
-        // --- Firebase SDK Imports ---
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCustomToken, signInAnonymously, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, deleteDoc, query, where, getDocs, writeBatch, documentId } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- Firebase Configuration & Initialization ---
-        // IMPORTANT: This configuration MUST match your Firebase project.
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config)
-            : {
-                 apiKey: "AIzaSyD7pEAqAjb8nULmEql3k9LuF1tzyb6DtcU",
-  authDomain: "ai-nutritionist-dashboard.firebaseapp.com",
-  projectId: "ai-nutritionist-dashboard",
-  storageBucket: "ai-nutritionist-dashboard.firebasestorage.app",
-  messagingSenderId: "1070059150082",
-  appId: "1:1070059150082:web:81de23eb39c1cb1b9ac01b",
-  measurementId: "G-R9VEQHBVCS"
-            };
-        
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        // Initialize Firebase services
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // --- Global State Variables ---
-        let userId = null;
-        let currentMealPlan = null;
-        let dailyTrackerUnsubscribe = () => {};
-        let todoUnsubscribe = () => {};
-        let weeklyChart = null;
-        let currentCalendarDate = new Date();
-        const geminiApiKey = ""; // This will be substituted by the environment.
-
-        // --- UI Element References ---
-        const authContainer = document.getElementById('auth-container');
-        const generateBtn = document.getElementById('generate-plan-btn');
-        const saveBtn = document.getElementById('save-plan-btn');
-        const shareBtn = document.getElementById('share-plan-btn');
-        const analyzeWeekBtn = document.getElementById('analyze-week-btn');
-        const weeklySummaryContent = document.getElementById('weekly-summary-content');
-        const loadingModal = document.getElementById('loading-modal');
-        const loadingText = document.getElementById('loading-text');
-        const errorModal = document.getElementById('error-modal');
-        const errorMessage = document.getElementById('error-message');
-        const mealPlanBody = document.getElementById('meal-plan-body');
-        const recipeModal = document.getElementById('recipe-modal');
-        const recipeTitle = document.getElementById('recipe-title');
-        const recipeContent = document.getElementById('recipe-content');
-        const shareModal = document.getElementById('share-modal');
-        const shareText = document.getElementById('share-text');
-        const todoInput = document.getElementById('todo-input');
-        const addTodoBtn = document.getElementById('add-todo-btn');
-        const todoList = document.getElementById('todo-list');
-        const waterTrackerContainer = document.getElementById('water-tracker');
-        const activityInput = document.getElementById('activity-input');
-        const sleepInput = document.getElementById('sleep-input');
-        const prevMonthBtn = document.getElementById('prev-month-btn');
-        const nextMonthBtn = document.getElementById('next-month-btn');
-
-        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-        const mealTimes = [
-            { key: 'earlyMorning', label: 'Early Morning', time: '(6-7 AM)' },
-            { key: 'breakfast', label: 'Breakfast', time: '(8-9 AM)' },
-            { key: 'midMorningSnack', label: 'Mid-Morning Snack', time: '(11 AM)' },
-            { key: 'lunch', label: 'Lunch', time: '(1-2 PM)' },
-            { key: 'eveningSnack', label: 'Evening Snack', time: '(4-5 PM)' },
-            { key: 'dinner', label: 'Dinner', time: '(7-8 PM)' },
-            { key: 'bedtime', label: 'Bedtime', time: '(Optional)' }
-        ];
-        const TOTAL_GLASSES = 10;
-
-        // --- Initial Setup on Page Load ---
-        document.addEventListener('DOMContentLoaded', () => {
-            generateBtn.addEventListener('click', generateMealPlan);
-            saveBtn.addEventListener('click', saveCurrentMealPlan);
-            shareBtn.addEventListener('click', showShareModal);
-            addTodoBtn.addEventListener('click', addTodo);
-            todoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addTodo(); });
-            activityInput.addEventListener('change', updateDailyTracker);
-            sleepInput.addEventListener('change', updateDailyTracker);
-            prevMonthBtn.addEventListener('click', () => changeMonth(-1));
-            nextMonthBtn.addEventListener('click', () => changeMonth(1));
-            analyzeWeekBtn.addEventListener('click', generateWeeklySummary);
-            populateTableStructure();
-            populateWaterTracker();
-        });
-
-        // --- Firebase Authentication ---
-        onAuthStateChanged(auth, async (user) => {
-            // Unsubscribe from previous user's data
-            dailyTrackerUnsubscribe();
-            todoUnsubscribe();
-
-            if (user) {
-                userId = user.uid;
-                console.log("User signed in:", userId);
-                updateAuthUI(user);
-                await loadUserProfile();
-                setupRealtimeListeners();
-            } else {
-                userId = null;
-                console.log("No user signed in, attempting session sign-in.");
-                updateAuthUI(null);
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    console.error("Automatic sign-in failed:", error);
-                    showError("Could not start a session. Please refresh the page. This may be due to a backend configuration issue.");
-                }
-            }
-        });
-
-        function updateAuthUI(user) {
-            if (user && !user.isAnonymous) {
-                authContainer.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <img src="${user.photoURL || `https://placehold.co/40x40/E2E8F0/4A5568?text=${user.displayName?.[0] || 'U'}`}" class="w-10 h-10 rounded-full" alt="Profile">
-                        <div>
-                            <p class="font-semibold text-gray-700">${user.displayName || 'Welcome!'}</p>
-                            <p class="text-xs text-gray-500">${user.email}</p>
+            <!-- Phase 2: Content -->
+            <section id="phase2" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
+                <h2 class="text-3xl font-bold brand-green mb-2">Phase 2: The "Hub and Spoke" Content Strategy</h2>
+                <p class="text-gray-600 mb-8">This is how we establish topical authority. Instead of writing random articles, we create content "clusters." Start with a broad "Hub" post, then write detailed "Spoke" posts that dive deeper into specific sub-topics and link back to the hub. Explore the first content hub plan below.</p>
+                <div class="text-center">
+                    <div class="relative inline-block">
+                        <div class="bg-green-100 border-2 border-dashed brand-border p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-bold brand-green">Hub Page (Pillar Post)</h3>
+                            <p class="mt-1">"7 Ayurvedic Tips to Lose Weight Naturally with PCOS"</p>
                         </div>
-                    </div>`;
-            } else {
-                authContainer.innerHTML = `<button id="google-signin-btn" class="bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 flex items-center gap-2">
-                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google"> Sign in with Google
-                    </button>`;
-                document.getElementById('google-signin-btn')?.addEventListener('click', signInWithGoogle);
-            }
-        }
+                        <div class="absolute top-full left-1/2 w-0.5 h-8 bg-gray-300 -translate-x-1/2"></div>
+                    </div>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Spoke posts will be inserted here by JS -->
+                </div>
+            </section>
 
-        async function signInWithGoogle() {
-            const provider = new GoogleAuthProvider();
-            try {
-                await setPersistence(auth, browserLocalPersistence);
-                await signInWithPopup(auth, provider);
-                console.log("Google sign-in successful");
-            } catch (error) {
-                console.error("Google Sign-in Error:", error);
-                showError("Could not sign in with Google. Please try again.");
-            }
-        }
+            <!-- Phase 3: Traffic -->
+            <section id="phase3" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
+                 <h2 class="text-3xl font-bold brand-green mb-2">Phase 3: Authority Building & Traffic Generation</h2>
+                 <p class="text-gray-600 mb-8">Great content needs an audience. This phase is about proactively driving your first visitors and building authority outside of your blog. Focus on these two high-impact channels where your target audience is highly active.</p>
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-amber-50 p-6 rounded-lg border-l-4 brand-border">
+                        <h3 class="text-2xl font-bold brand-green mb-3">📍 Pinterest & Instagram</h3>
+                        <p class="font-semibold mb-2">Strategy:</p>
+                        <p class="mb-4">Your audience is highly visual. Use these platforms to share beautiful, informative graphics that lead back to your blog posts.</p>
+                        <p class="font-semibold mb-2">Action Plan:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Create Business accounts on both platforms.</li>
+                            <li>For each blog post, create 3-5 visuals on Canva (Pins, Infographics, Carousels).</li>
+                            <li>In every description, use target keywords and add a clear link back to your blog post.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-sky-50 p-6 rounded-lg border-l-4 brand-border">
+                        <h3 class="text-2xl font-bold brand-green mb-3">❓ Quora Questions</h3>
+                        <p class="font-semibold mb-2">Strategy:</p>
+                        <p class="mb-4">Position yourself as a helpful expert by answering real questions your audience is asking.</p>
+                        <p class="font-semibold mb-2">Action Plan:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Search Quora for questions about PCOS, Ayurveda, and weight loss in India.</li>
+                            <li>Write genuine, high-value answers (2-3 paragraphs).</li>
+                            <li>At the end, naturally link to a relevant, detailed post on your blog.</li>
+                            <li>Aim to answer 10-15 relevant questions.</li>
+                        </ul>
+                    </div>
+                 </div>
+            </section>
 
-        // --- AI-Powered Functions ---
-        async function callGeminiAPI(prompt, schema = null) {
-                        const apiKey = "AIzaSyDi3lY73B_oFSH96Qca1OukqZfeyD2LIg8";
-
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-
-            if (schema) {
-                payload.generationConfig = {
-                    responseMimeType: "application/json",
-                    responseSchema: schema
-                };
-            }
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorBody = await response.json();
-                    console.error("API Error Body:", errorBody);
-                    throw new Error(`API Error: ${errorBody.error?.message || response.statusText}`);
-                }
-
-                const result = await response.json();
-
-                if (result.candidates?.[0]?.content?.parts?.[0]) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    return schema ? JSON.parse(text) : text;
-                } else {
-                    console.error("Unexpected API response structure:", result);
-                    throw new Error("Received an invalid response from the AI.");
-                }
-            } catch (error) {
-                console.error("Gemini API call failed:", error);
-                throw error;
-            }
-        }
-
-        async function generateWeeklySummary() {
-            if (!weeklyChart) {
-                showError("No weekly data to analyze. Please track your water, activity, or sleep.");
-                return;
-            }
-            showLoading(true, "Analyzing your week...");
-            const data = weeklyChart.data;
-            const summaryData = {
-                labels: data.labels,
-                sleep: data.datasets[0].data,
-                activity: data.datasets[1].data,
-                water: data.datasets[2].data,
-            };
-            const prompt = `As a friendly and encouraging wellness coach, analyze the following weekly data for a user. Provide a short, easy-to-understand summary (2-3 paragraphs). Identify one positive trend to celebrate and one area for gentle improvement. Do not use markdown.
-            Data: ${JSON.stringify(summaryData)}`;
-            
-            try {
-                const summaryText = await callGeminiAPI(prompt);
-                weeklySummaryContent.textContent = summaryText;
-                weeklySummaryContent.classList.remove('hidden');
-            } catch (error) {
-                showError(`Failed to generate weekly summary. Details: ${error.message}`);
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // --- Core Application Logic ---
-        function populateTableStructure() {
-            mealPlanBody.innerHTML = '';
-            mealTimes.forEach(meal => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<th>${meal.label}<br><span class="font-normal text-gray-500">${meal.time}</span></th>
-                                 ${days.map(day => `<td id="${day}-${meal.key}"></td>`).join('')}`;
-                mealPlanBody.appendChild(row);
-            });
-        }
-
-        function populateWaterTracker() {
-            waterTrackerContainer.innerHTML = '';
-            for (let i = 1; i <= TOTAL_GLASSES; i++) {
-                const glass = document.createElement('i');
-                glass.className = 'fas fa-tint water-glass';
-                glass.dataset.index = i;
-                glass.addEventListener('click', () => handleWaterClick(i));
-                waterTrackerContainer.appendChild(glass);
-            }
-        }
-
-        function setupRealtimeListeners() {
-            if (!userId) return;
-
-            // --- Listener for Daily Trackers ---
-            const today = new Date().toISOString().split('T')[0];
-            const dailyTrackerRef = doc(db, `artifacts/${appId}/users/${userId}/dailyTrackers`, today);
-            dailyTrackerUnsubscribe = onSnapshot(dailyTrackerRef, (docSnap) => {
-                const data = docSnap.data() || { water: 0, activity: 0, sleep: 0 };
-                updateWaterTrackerUI(data.water);
-                if (document.activeElement !== activityInput) activityInput.value = data.activity || '';
-                if (document.activeElement !== sleepInput) sleepInput.value = data.sleep || '';
-                renderWeeklyAnalysis();
-                renderMonthlyCalendar();
-            }, (error) => {
-                console.error("Firestore listener error (Daily Trackers):", error);
-                showError("Failed to load daily tracker data. Please check your connection or Firebase setup.");
-            });
-
-            // --- Listener for Todos ---
-            const todosRef = collection(db, `artifacts/${appId}/users/${userId}/todos`);
-            const todosQuery = query(todosRef);
-            todoUnsubscribe = onSnapshot(todosQuery, (snapshot) => {
-                const todos = [];
-                snapshot.forEach(doc => todos.push({ id: doc.id, ...doc.data() }));
-                renderTodoList(todos);
-            }, (error) => {
-                console.error("Firestore listener error (Todos):", error);
-                showError("Failed to load todos.");
-            });
-        }
-        
-        function renderTodoList(todos) {
-            todoList.innerHTML = '';
-            todos.forEach(todo => {
-                const li = document.createElement('li');
-                li.className = 'flex items-center justify-between bg-gray-100 p-2 rounded-lg';
-                li.innerHTML = `<span class="flex-grow mr-2">${todo.text}</span><button data-id="${todo.id}" class="text-red-400 hover:text-red-600 delete-todo-btn text-xl font-bold">&times;</button>`;
-                li.querySelector('.delete-todo-btn').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    deleteTodo(e.target.dataset.id);
-                });
-                todoList.appendChild(li);
-            });
-        }
-
-        async function addTodo() {
-            const text = todoInput.value.trim();
-            if (text === '') { showError("Please enter a task."); return; }
-            if (!userId) { showError("Please sign in to add tasks."); return; }
-            todoInput.value = '';
-            try {
-                const todosCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/todos`);
-                await addDoc(todosCollectionRef, {
-                    text: text,
-                    createdAt: new Date()
-                });
-            } catch (error) {
-                console.error("Error adding todo:", error);
-                showError("Failed to add task.");
-            }
-        }
-
-        async function deleteTodo(id) {
-            if (!userId) { showError("Please sign in to delete tasks."); return; }
-            try {
-                const todoDocRef = doc(db, `artifacts/${appId}/users/${userId}/todos`, id);
-                await deleteDoc(todoDocRef);
-            } catch (error) {
-                console.error("Error deleting todo:", error);
-                showError("Failed to delete task.");
-            }
-        }
-
-        function updateWaterTrackerUI(count) {
-            const glasses = waterTrackerContainer.querySelectorAll('.water-glass');
-            glasses.forEach((glass, index) => {
-                glass.classList.toggle('filled', index < count);
-            });
-        }
-
-        async function handleWaterClick(count) {
-            if (!userId) { showError("Please sign in to track water intake."); return; }
-            const today = new Date().toISOString().split('T')[0];
-            const dailyTrackerRef = doc(db, `artifacts/${appId}/users/${userId}/dailyTrackers`, today);
-            try {
-                const docSnap = await getDoc(dailyTrackerRef);
-                const currentCount = docSnap.exists() ? docSnap.data().water : 0;
-                const newCount = currentCount === count ? 0 : count; // Toggle off if clicked again
-                await setDoc(dailyTrackerRef, { water: newCount }, { merge: true });
-            } catch (error) {
-                console.error("Error updating water:", error);
-                showError("Failed to update water intake.");
-            }
-        }
-
-        async function updateDailyTracker() {
-            if (!userId) { showError("Please sign in to track activity and sleep."); return; }
-            const activity = parseInt(activityInput.value, 10) || 0;
-            const sleep = parseFloat(sleepInput.value) || 0;
-            if (activity < 0 || sleep < 0) { showError("Please enter valid values for activity and sleep."); return; }
-            const dataToUpdate = { activity, sleep };
-            const today = new Date().toISOString().split('T')[0];
-            const dailyTrackerRef = doc(db, `artifacts/${appId}/users/${userId}/dailyTrackers`, today);
-            try {
-                await setDoc(dailyTrackerRef, dataToUpdate, { merge: true });
-            } catch (error) {
-                console.error("Error updating trackers:", error);
-                showError("Failed to update daily trackers.");
-            }
-        }
-
-        async function renderWeeklyAnalysis() {
-            if (!userId) return;
-            const ctx = document.getElementById('weeklyAnalysisChart')?.getContext('2d');
-            if (!ctx) return;
-
-            const labels = [];
-            const waterData = [], activityData = [], sleepData = [];
-            const datePromises = [];
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(new Date().getDate() - i);
-                const dateString = date.toISOString().split('T')[0];
-                labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
-                const docRef = doc(db, `artifacts/${appId}/users/${userId}/dailyTrackers`, dateString);
-                datePromises.push(getDoc(docRef));
-            }
-
-            try {
-                const docSnaps = await Promise.all(datePromises);
-                docSnaps.forEach(docSnap => {
-                    const data = docSnap.data() || {};
-                    waterData.push(data.water || 0);
-                    activityData.push(data.activity || 0);
-                    sleepData.push(data.sleep || 0);
-                });
-
-                if (weeklyChart) weeklyChart.destroy();
+            <!-- Phase 4: Monetization -->
+            <section id="phase4" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
+                <h2 class="text-3xl font-bold brand-green mb-2">Phase 4: The Monetization Engine</h2>
+                <p class="text-gray-600 mb-8">This is how your blog becomes a business. We will create an ecosystem where every piece of content has a path to revenue, guiding readers from free content to paid products. The funnel below illustrates this journey.</p>
                 
-                weeklyChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            { label: 'Sleep (hrs)', data: sleepData, borderColor: 'rgb(167, 139, 250)', backgroundColor: 'rgba(167, 139, 250, 0.1)', fill: true, tension: 0.4 },
-                            { label: 'Activity (mins)', data: activityData, borderColor: 'rgb(251, 146, 60)', backgroundColor: 'rgba(251, 146, 60, 0.1)', fill: true, tension: 0.4 },
-                            { label: 'Water (glasses)', data: waterData, borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4 }
-                        ]
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold brand-green mb-4 text-center">Your Earning Funnel</h3>
+                        <div class="space-y-[-1px] max-w-sm mx-auto">
+                            <div class="funnel-step bg-green-100 p-3 text-center">
+                                <p class="font-bold">Organic Traffic</p>
+                                <p class="text-sm">Google, Pinterest, Quora</p>
+                            </div>
+                            <div class="funnel-step bg-green-200 p-4 text-center w-[90%] mx-auto">
+                                <p class="font-bold">Affiliate Marketing</p>
+                                <p class="text-sm">Amazon product links</p>
+                            </div>
+                            <div class="funnel-step bg-green-300 p-5 text-center w-[80%] mx-auto">
+                                <p class="font-bold">Digital Product (Tripwire)</p>
+                                <p class="text-sm">₹199 Kickstart Plan</p>
+                            </div>
+                            <div class="funnel-step bg-green-400 p-6 text-center w-[70%] mx-auto">
+                                <p class="font-bold">Digital Product (Core)</p>
+                                <p class="text-sm">₹499-₹999 eBook</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                         <h3 class="text-2xl font-bold brand-green mb-4 text-center">Sample Revenue Potential</h3>
+                         <div class="chart-container">
+                             <canvas id="monetizationChart"></canvas>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    const appData = {
+        phase1: [
+            { title: "Connect to Google Search Console (GSC)", details: "Go to Google Search Console, log in, add your blog's URL (`https://www.pcosayurveda.com`), and complete the easy verification process through Blogger." },
+            { title: "Connect to Google Analytics 4 (GA4)", details: "Go to Google Analytics, create a new account, get your 'Measurement ID' (e.g., G-XXXXXXXXXX), and paste it into your Blogger Settings under 'Google Analytics Measurement ID'." },
+            { title: "Submit Your Sitemap to GSC", details: "In your GSC account, go to Indexing > Sitemaps. Under 'Add a new sitemap,' type `sitemap.xml` and click Submit. This helps Google find all your pages." },
+            { title: "Optimize Core Blog Settings", details: "In Blogger Settings, set your Title to 'PcosAyurveda.com: Natural Weight Loss & Hormonal Balance' and paste this description: 'Guiding Indian women to naturally manage PCOS, lose weight, and balance hormones with proven Ayurvedic remedies, diet charts, and wellness tips.' Ensure 'Visible to search engines' is ON." }
+        ],
+        phase2_spokes: [
+            { title: "Shatavari for PCOS: How This Herb Fights Cysts", keyword: "shatavari for pcos", monetization: "Affiliate link to trusted Shatavari brand on Amazon." },
+            { title: "5 Ayurvedic Drinks for PCOS Belly Fat", keyword: "pcos belly fat remedy", monetization: "Affiliate links to cinnamon, jeera, copper bottles." },
+            { title: "The 15-Min PCOS Yoga Routine", keyword: "yoga for hormonal balance", monetization: "Affiliate links to mats, blocks. Sell a '30-Day Yoga Challenge' PDF." },
+            { title: "The Ultimate Indian Khichdi Recipe for PCOS", keyword: "indian diet for pcos", monetization: "Sell a '7-Day Ayurvedic PCOS Meal Plan' PDF on Gumroad." },
+            { title: "How to Stop PCOS Hair Fall: An Ayurvedic Guide", keyword: "pcos hair fall remedy ayurveda", monetization: "Affiliate links to Bhringraj oil and supplements." }
+        ]
+    };
+
+    const phase1Container = document.getElementById('foundation-checklist');
+    appData.phase1.forEach(task => {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'border rounded-lg p-4';
+        taskElement.innerHTML = `
+            <details>
+                <summary class="flex items-center cursor-pointer">
+                    <input type="checkbox" class="task-checkbox mr-4 flex-shrink-0">
+                    <span class="font-bold flex-grow">${task.title}</span>
+                    <span class="details-marker text-green-700 font-bold transform transition-transform duration-200">&#9654;</span>
+                </summary>
+                <div class="mt-3 pt-3 border-t text-gray-600">
+                    <p><strong>Action:</strong> ${task.details}</p>
+                </div>
+            </details>
+        `;
+        phase1Container.appendChild(taskElement);
+    });
+
+    const phase2Container = document.querySelector('#phase2 .grid');
+    appData.phase2_spokes.forEach(spoke => {
+        const spokeElement = document.createElement('div');
+        spokeElement.className = 'spoke-card bg-white p-5 rounded-lg shadow-md';
+        spokeElement.innerHTML = `
+            <h4 class="font-bold brand-green text-lg">${spoke.title}</h4>
+            <p class="text-sm mt-2"><strong class="brand-tan">Target Keyword:</strong> "${spoke.keyword}"</p>
+            <p class="text-sm mt-1"><strong class="brand-tan">Monetization:</strong> ${spoke.monetization}</p>
+        `;
+        phase2Container.appendChild(spokeElement);
+    });
+    
+    const navBar = document.getElementById('nav-bar');
+    const contentSections = document.querySelectorAll('.phase-content');
+    let monetizationChartInstance = null;
+
+    navBar.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const targetPhase = e.target.dataset.phase;
+
+            navBar.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+
+            contentSections.forEach(section => {
+                section.style.display = section.id === targetPhase ? 'block' : 'none';
+            });
+            
+            if (targetPhase === 'phase4') {
+                renderMonetizationChart();
+            }
+        }
+    });
+    
+    function renderMonetizationChart() {
+        const ctx = document.getElementById('monetizationChart').getContext('2d');
+        if (monetizationChartInstance) {
+            monetizationChartInstance.destroy();
+        }
+        monetizationChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Affiliate Sales', 'Tripwire Product', 'Core eBook'],
+                datasets: [{
+                    label: 'Potential Monthly Revenue (₹)',
+                    data: [3000, 7500, 20000],
+                    backgroundColor: ['#a7d7a9', '#73b976', '#3a5a40'],
+                    borderColor: ['#3A5A40'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
                     },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
-                });
-
-            } catch (error) {
-                console.error("Error rendering weekly analysis:", error);
-                showError("Failed to load weekly analysis data.");
-            }
-        }
-
-        async function renderMonthlyCalendar() {
-            if (!userId) return;
-            document.getElementById('month-year-header').textContent = currentCalendarDate.toLocaleString('default', { month: 'long', year: 'numeric' });
-            const grid = document.getElementById('monthly-calendar-grid');
-            grid.innerHTML = '';
-            const year = currentCalendarDate.getFullYear();
-            const month = currentCalendarDate.getMonth();
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            for (let i = 0; i < firstDayOfMonth; i++) grid.insertAdjacentHTML('beforeend', '<div></div>');
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const isToday = new Date().toDateString() === new Date(year, month, day).toDateString();
-                const dayEl = document.createElement('div');
-                dayEl.className = `calendar-day p-1 border border-gray-200 rounded ${isToday ? 'bg-blue-100' : 'bg-white'}`;
-                dayEl.innerHTML = `<div class="font-bold">${day}</div><div id="cal-data-${dateString}" class="text-xs text-left pl-1 space-y-1"></div>`;
-                grid.appendChild(dayEl);
-            }
-
-            const startDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
-            const endDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}`;
-            const q = query(
-                collection(db, `artifacts/${appId}/users/${userId}/dailyTrackers`),
-                where(documentId(), '>=', startDate),
-                where(documentId(), '<=', endDate)
-            );
-
-            try {
-                const querySnapshot = await getDocs(q);
-                querySnapshot.forEach(doc => {
-                    const data = doc.data();
-                    const contentEl = document.getElementById(`cal-data-${doc.id}`);
-                    if (contentEl) {
-                        contentEl.innerHTML = `
-                            ${data.sleep ? `<div><i class="fas fa-moon text-purple-400"></i> ${data.sleep}h</div>` : ''}
-                            ${data.activity ? `<div><i class="fas fa-running text-orange-400"></i> ${data.activity}m</div>` : ''}
-                            ${data.water ? `<div><i class="fas fa-tint text-blue-400"></i> ${data.water}</div>` : ''}
-                        `;
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` Est. Revenue: ₹${context.raw.toLocaleString('en-IN')}`;
+                            }
+                        }
                     }
-                });
-            } catch (error) {
-                console.error("Error rendering monthly calendar:", error);
-                // Not showing a modal error here as it can be too intrusive on month change.
-            }
-        }
-
-        function changeMonth(offset) {
-            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
-            renderMonthlyCalendar();
-        }
-
-        function showLoading(show, text = "Generating Meal Plan...") {
-            loadingText.textContent = text;
-            loadingModal.style.display = show ? 'flex' : 'none';
-        }
-
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorModal.style.display = 'flex';
-        }
-        window.closeErrorModal = () => errorModal.style.display = 'none';
-
-        async function generateMealPlan() {
-            if (!userId) { showError("Please sign in to generate a meal plan."); return; }
-            showLoading(true);
-            await saveUserProfile(); // Save latest profile before generating
-            const clientDetails = {
-                age: document.getElementById('client-age').value,
-                height: document.getElementById('client-height').value,
-                weight: document.getElementById('client-weight').value,
-                conditions: document.getElementById('client-conditions').value,
-                allergies: document.getElementById('client-allergies').value,
-                preference: document.getElementById('client-preference').value,
-                goal: document.getElementById('client-goal').value,
-                calories: document.getElementById('client-calories').value,
-                protein: document.getElementById('client-protein').value,
-                carbs: document.getElementById('client-carbs').value
-            };
-            if (!clientDetails.age || !clientDetails.height || !clientDetails.weight || !clientDetails.calories) {
-                showError("Please fill in all required profile fields (age, height, weight, calories).");
-                showLoading(false);
-                return;
-            }
-            const prompt = `You are an expert nutritionist creating a diet plan. Based on the following client details, generate a healthy and balanced 7-day meal plan. The client lives in a dense urban environment like Delhi, India, so consider pollution and lifestyle stress. Include antioxidant-rich and immunity-boosting foods.
-            **Crucially, if the dietary preference is 'Ayurvedic' or 'Sattvic', the entire meal plan must strictly follow the principles of that diet.**
-            Client Details:
-            - Age: ${clientDetails.age}, Height: ${clientDetails.height} cm, Weight: ${clientDetails.weight} kg
-            - Primary Health Goal: ${clientDetails.goal}
-            - Dietary Preference: ${clientDetails.preference}
-            - Known Allergies: ${clientDetails.allergies}
-            - Medical Conditions: ${clientDetails.conditions}
-            - Target Daily Intake: ~${clientDetails.calories} calories, ${clientDetails.protein}g protein, ${clientDetails.carbs}g carbs.
-            Provide a simple, practical meal suggestion for each slot.`;
-            const schema = { type: "OBJECT", properties: {}, required: days };
-            days.forEach(day => {
-                schema.properties[day] = { type: "OBJECT", properties: {}, required: mealTimes.map(mt => mt.key) };
-                mealTimes.forEach(meal => { schema.properties[day].properties[meal.key] = { type: "STRING" }; });
-            });
-            
-            try {
-                const mealPlan = await callGeminiAPI(prompt, schema);
-                populateTableWithPlan(mealPlan);
-            } catch (error) {
-                // CODE CORRECTION (Line 718): Added specific error message for "blocked" API requests.
-                console.error("Full error object:", error);
-                let userFriendlyMessage = `Failed to generate the meal plan. Details: ${error.message}`;
-                if (error.message && error.message.includes("blocked")) {
-                    userFriendlyMessage = "The request to the AI service was blocked. This is likely due to API key restrictions in your Google Cloud project. Please check that the 'Generative Language API' is enabled and that your API key's restrictions allow it.";
-                }
-                showError(userFriendlyMessage);
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        function populateTableWithPlan(plan) {
-            currentMealPlan = plan;
-            days.forEach(day => {
-                mealTimes.forEach(meal => {
-                    const cell = document.getElementById(`${day}-${meal.key}`);
-                    if (cell && plan[day] && plan[day][meal.key]) {
-                        cell.textContent = plan[day][meal.key];
-                        cell.classList.add('has-recipe');
-                        cell.onclick = () => showRecipeModal(plan[day][meal.key]);
-                    } else if (cell) {
-                        cell.textContent = '';
-                        cell.classList.remove('has-recipe');
-                        cell.onclick = null;
-                    }
-                });
-            });
-            saveBtn.style.display = 'inline-block';
-            shareBtn.style.display = 'inline-block';
-        }
-
-        async function generateRecipe(mealName) {
-            showLoading(true, "Generating Recipe...");
-            const preference = document.getElementById('client-preference').value || 'None';
-            const prompt = `You are a helpful cooking assistant. Provide a simple, healthy, and quick recipe for "${mealName}". The recipe should be suitable for a person with these dietary preferences: ${preference}. Format the response as simple HTML with headings (h3 for Ingredients/Instructions) and lists (ul/li). Do not include any markdown formatting like \`\`\`html.`;
-            
-            try {
-                const recipeHtml = await callGeminiAPI(prompt);
-                recipeContent.innerHTML = recipeHtml;
-            } catch (error) {
-                recipeContent.innerHTML = `<p class="text-red-500">Sorry, we couldn't generate a recipe at this time. Details: ${error.message}</p>`;
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        function showRecipeModal(mealName) {
-            recipeTitle.textContent = `Recipe for ${mealName}`;
-            recipeContent.innerHTML = `<p>Click the button to generate a recipe!</p><button onclick="generateRecipe('${mealName.replace(/'/g, "\\'")}')" class="mt-4 w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">Generate Recipe</button>`;
-            recipeModal.style.display = 'flex';
-        }
-        window.closeRecipeModal = () => recipeModal.style.display = 'none';
-        window.generateRecipe = generateRecipe;
-
-        function showShareModal() {
-            if (!currentMealPlan) { showError("Please generate a meal plan first."); return; }
-            const clientName = document.getElementById('client-name').value || 'User';
-            const goal = document.getElementById('client-goal').value || 'Health';
-            let summary = `Check out my new AI-generated meal plan for ${clientName}!\n\nMy Goal: ${goal}\n\nHere's a sneak peek:\n`;
-            summary += `- Monday Breakfast: ${currentMealPlan.monday.breakfast || 'N/A'}\n`;
-            summary += `- Wednesday Lunch: ${currentMealPlan.wednesday.lunch || 'N/A'}\n`;
-            summary += `- Friday Dinner: ${currentMealPlan.friday.dinner || 'N/A'}\n\n`;
-            summary += `Generated with the AI Nutrition Planner!`;
-            shareText.value = summary;
-            shareModal.style.display = 'flex';
-        }
-        window.closeShareModal = () => shareModal.style.display = 'none';
-        window.copyShareText = () => {
-            shareText.select();
-            document.execCommand('copy');
-            closeShareModal();
-        };
-
-        async function loadUserProfile() {
-            if (!userId) return;
-            const userDocRef = doc(db, `artifacts/${appId}/users`, userId);
-            try {
-                const docSnap = await getDoc(userDocRef);
-                if (docSnap.exists()) {
-                    const profile = docSnap.data().profile;
-                    if (profile) {
-                        Object.keys(profile).forEach(key => {
-                            const element = document.getElementById(key);
-                            if (element) element.value = profile[key] || '';
-                        });
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                         ticks: {
+                            callback: function(value, index, values) {
+                                return '₹' + value / 1000 + 'k';
+                            }
+                        }
                     }
                 }
-            } catch (error) {
-                console.error("Error loading user profile:", error);
-                showError("Failed to load your saved profile.");
             }
-        }
+        });
+    }
 
-        async function saveUserProfile() {
-            if (!userId) return;
-            const profileData = {
-                'client-name': document.getElementById('client-name').value,
-                'client-age': document.getElementById('client-age').value,
-                'client-height': document.getElementById('client-height').value,
-                'client-weight': document.getElementById('client-weight').value,
-                'client-conditions': document.getElementById('client-conditions').value,
-                'client-allergies': document.getElementById('client-allergies').value,
-                'client-preference': document.getElementById('client-preference').value,
-                'client-goal': document.getElementById('client-goal').value,
-                'client-calories': document.getElementById('client-calories').value,
-                'client-protein': document.getElementById('client-protein').value,
-                'client-carbs': document.getElementById('client-carbs').value,
-            };
-            const userDocRef = doc(db, `artifacts/${appId}/users`, userId);
-            try {
-                await setDoc(userDocRef, { profile: profileData }, { merge: true });
-            } catch (error) {
-                console.error("Error saving user profile:", error);
-                showError("Failed to save your profile.");
-            }
-        }
+    // Initialize with Phase 1 visible
+    document.addEventListener('DOMContentLoaded', () => {
+        navBar.querySelector('button[data-phase="phase1"]').click();
+    });
 
-        async function saveCurrentMealPlan() {
-            if (!currentMealPlan || !userId) { showError("No active meal plan to save or not signed in."); return; }
-            showLoading(true, "Saving Plan...");
-            try {
-                const plansCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/mealPlans`);
-                await addDoc(plansCollectionRef, {
-                    createdAt: new Date(),
-                    planName: `Meal Plan - ${new Date().toLocaleDateString()}`,
-                    planData: JSON.parse(JSON.stringify(currentMealPlan)) // Clean serialization
-                });
-            } catch (error) {
-                console.error("Error saving plan:", error);
-                showError("Could not save the plan.");
-            } finally {
-                showLoading(false);
-            }
-        }
-    </script>
+</script>
 </body>
 </html>
