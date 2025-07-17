@@ -3,274 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PcosAyurveda.com - Interactive Growth Blueprint</title>
-    <!-- Chosen Palette: Calm Harmony -->
-    <!-- Application Structure Plan: The SPA is structured as an interactive, phased dashboard with four main sections corresponding to the report's phases: Foundation, Content, Traffic, and Monetization. Navigation is handled by a top tab bar, allowing users to focus on one phase at a time, which is more user-friendly than a long scroll. This design was chosen to transform a static linear plan into an actionable tool. Phase 1 is an interactive checklist for tracking progress. Phase 2 uses a visual "Hub & Spoke" diagram to clarify the content strategy. Phase 3 uses a clean card layout for traffic tactics. Phase 4 visualizes the business model with a CSS funnel diagram and an interactive Chart.js chart to motivate the user. This structure breaks down a complex strategy into manageable, interactive steps, prioritizing clarity and user engagement. -->
-    <!-- Visualization & Content Choices: 
-        - Phase 1 (Foundation): Report Info -> One-time setup tasks. Goal -> Inform & Track. Viz/Method -> Interactive Checklist (HTML details/summary + JS). Interaction -> Toggling tasks to reveal details and mark completion. Justification -> More engaging than a static list, provides a sense of accomplishment.
-        - Phase 2 (Content): Report Info -> Hub and Spoke model. Goal -> Organize & Explain Strategy. Viz/Method -> Visual Diagram (HTML/Tailwind Flexbox). Interaction -> Hovering on spoke cards for emphasis. Justification -> Visually clarifies the relationship between pillar and cluster content.
-        - Phase 3 (Traffic): Report Info -> Promotion tactics. Goal -> Inform. Viz/Method -> Two-column card layout with icons (Unicode). Interaction -> Simple hover effects. Justification -> Clean, scannable presentation of actions.
-        - Phase 4 (Monetization): Report Info -> Funnel and revenue streams. Goal -> Explain Business Model & Motivate. Viz/Method -> CSS Funnel Diagram + Chart.js Bar Chart. Interaction -> Chart animation and tooltips. Justification -> Simplifies the earning process and visualizes potential, making it tangible. Library -> Chart.js.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>7 Ayurvedic Tips to Lose Weight Naturally with PCOS (Free Diet PDF)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8F6F4; }
-        h1, h2, h3, h4, .font-display { font-family: 'Playfair Display', serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
         .brand-green { color: #3A5A40; }
-        .brand-green-bg { background-color: #3A5A40; }
         .brand-tan { color: #A89A8E; }
+        .brand-bg-light { background-color: #F8F6F4; }
+        .brand-bg-green { background-color: #3A5A40; }
         .brand-border { border-color: #A89A8E; }
-        .nav-button { transition: all 0.3s ease; }
-        .nav-button.active { background-color: #3A5A40; color: white; }
-        .nav-button:not(.active):hover { background-color: #e2dcd6; }
-        .task-checkbox { transform: scale(1.2); accent-color: #3A5A40; }
-        .details-marker { transition: transform 0.2s ease; }
-        details[open] .details-marker { transform: rotate(90deg); }
-        .spoke-card { transition: all 0.3s ease; border-left-width: 4px; border-color: #A89A8E; }
-        .spoke-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); border-color: #3A5A40; }
-        .funnel-step { clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
-        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
-        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            #printable-section {
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="brand-bg-light text-gray-800">
 
-    <div class="container mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold brand-green">Your Interactive Growth Blueprint</h1>
-            <p class="text-lg brand-tan mt-2">The SEO & Monetization Plan for PcosAyurveda.com</p>
-        </header>
+    <!-- This is the main container for your blog post -->
+    <!-- You can copy-paste everything from inside the <body> tag into Blogger's HTML view -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-8">
 
-        <!-- Navigation -->
-        <nav id="nav-bar" class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
-            <button data-phase="phase1" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full active">✅ Phase 1: Foundation</button>
-            <button data-phase="phase2" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">✍️ Phase 2: Content</button>
-            <button data-phase="phase3" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">🚀 Phase 3: Traffic</button>
-            <button data-phase="phase4" class="nav-button font-display text-sm sm:text-base font-bold py-2 px-4 rounded-full">💰 Phase 4: Monetization</button>
-        </nav>
+        <!-- Blog Post Article -->
+        <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+            
+            <!-- Featured Image -->
+            <img src="https://placehold.co/1200x600/a89a8e/ffffff?text=Ayurvedic+Wellness+for+PCOS" 
+                 alt="Ayurvedic herbs and spices arranged beautifully, symbolizing natural healing for PCOS." 
+                 class="w-full h-64 sm:h-96 object-cover">
 
-        <main id="app-content">
-            <!-- Phase 1: Foundation -->
-            <section id="phase1" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
-                <h2 class="text-3xl font-bold brand-green mb-2">Phase 1: The Technical SEO Foundation</h2>
-                <p class="text-gray-600 mb-6">This is your one-time setup to ensure Google can find, crawl, and understand your blog. Complete these essential tasks to build a strong base for all future growth. Interact with the checklist below to track your progress.</p>
-                <div id="foundation-checklist" class="space-y-4"></div>
-            </section>
-
-            <!-- Phase 2: Content -->
-            <section id="phase2" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
-                <h2 class="text-3xl font-bold brand-green mb-2">Phase 2: The "Hub and Spoke" Content Strategy</h2>
-                <p class="text-gray-600 mb-8">This is how we establish topical authority. Instead of writing random articles, we create content "clusters." Start with a broad "Hub" post, then write detailed "Spoke" posts that dive deeper into specific sub-topics and link back to the hub. Explore the first content hub plan below.</p>
-                <div class="text-center">
-                    <div class="relative inline-block">
-                        <div class="bg-green-100 border-2 border-dashed brand-border p-6 rounded-xl shadow-md">
-                            <h3 class="text-xl font-bold brand-green">Hub Page (Pillar Post)</h3>
-                            <p class="mt-1">"7 Ayurvedic Tips to Lose Weight Naturally with PCOS"</p>
-                        </div>
-                        <div class="absolute top-full left-1/2 w-0.5 h-8 bg-gray-300 -translate-x-1/2"></div>
-                    </div>
-                </div>
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Spoke posts will be inserted here by JS -->
-                </div>
-            </section>
-
-            <!-- Phase 3: Traffic -->
-            <section id="phase3" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
-                 <h2 class="text-3xl font-bold brand-green mb-2">Phase 3: Authority Building & Traffic Generation</h2>
-                 <p class="text-gray-600 mb-8">Great content needs an audience. This phase is about proactively driving your first visitors and building authority outside of your blog. Focus on these two high-impact channels where your target audience is highly active.</p>
-                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-amber-50 p-6 rounded-lg border-l-4 brand-border">
-                        <h3 class="text-2xl font-bold brand-green mb-3">📍 Pinterest & Instagram</h3>
-                        <p class="font-semibold mb-2">Strategy:</p>
-                        <p class="mb-4">Your audience is highly visual. Use these platforms to share beautiful, informative graphics that lead back to your blog posts.</p>
-                        <p class="font-semibold mb-2">Action Plan:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Create Business accounts on both platforms.</li>
-                            <li>For each blog post, create 3-5 visuals on Canva (Pins, Infographics, Carousels).</li>
-                            <li>In every description, use target keywords and add a clear link back to your blog post.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-sky-50 p-6 rounded-lg border-l-4 brand-border">
-                        <h3 class="text-2xl font-bold brand-green mb-3">❓ Quora Questions</h3>
-                        <p class="font-semibold mb-2">Strategy:</p>
-                        <p class="mb-4">Position yourself as a helpful expert by answering real questions your audience is asking.</p>
-                        <p class="font-semibold mb-2">Action Plan:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Search Quora for questions about PCOS, Ayurveda, and weight loss in India.</li>
-                            <li>Write genuine, high-value answers (2-3 paragraphs).</li>
-                            <li>At the end, naturally link to a relevant, detailed post on your blog.</li>
-                            <li>Aim to answer 10-15 relevant questions.</li>
-                        </ul>
-                    </div>
-                 </div>
-            </section>
-
-            <!-- Phase 4: Monetization -->
-            <section id="phase4" class="phase-content bg-white p-6 sm:p-8 rounded-2xl shadow-lg" style="display: none;">
-                <h2 class="text-3xl font-bold brand-green mb-2">Phase 4: The Monetization Engine</h2>
-                <p class="text-gray-600 mb-8">This is how your blog becomes a business. We will create an ecosystem where every piece of content has a path to revenue, guiding readers from free content to paid products. The funnel below illustrates this journey.</p>
+            <div class="p-6 sm:p-10">
+                <!-- Post Title -->
+                <h1 class="text-3xl md:text-5xl font-bold brand-green mb-4 leading-tight">
+                    7 Ayurvedic Tips to Lose Weight Naturally with PCOS (Free Diet PDF)
+                </h1>
                 
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Meta Info: Author / Date -->
+                <p class="text-sm brand-tan mb-8">
+                    Published on July 17, 2025 | By [Your Name]
+                </p>
+
+                <!-- Introduction -->
+                <p class="text-lg text-gray-700 leading-relaxed mb-8 border-l-4 brand-border pl-4">
+                    Struggling with stubborn weight, irregular periods, and fatigue due to PCOS? You're not alone. Ayurveda, the ancient Indian science of life, offers powerful and natural ways to rebalance your hormones, ignite your digestive fire (Agni), and gently shed excess fat. Let’s explore 7 time-tested tips that are easy to integrate into your life!
+                </p>
+
+                <!-- Main Content - The 7 Tips -->
+                <div class="space-y-10">
+
+                    <!-- Tip 1 -->
                     <div>
-                        <h3 class="text-2xl font-bold brand-green mb-4 text-center">Your Earning Funnel</h3>
-                        <div class="space-y-[-1px] max-w-sm mx-auto">
-                            <div class="funnel-step bg-green-100 p-3 text-center">
-                                <p class="font-bold">Organic Traffic</p>
-                                <p class="text-sm">Google, Pinterest, Quora</p>
-                            </div>
-                            <div class="funnel-step bg-green-200 p-4 text-center w-[90%] mx-auto">
-                                <p class="font-bold">Affiliate Marketing</p>
-                                <p class="text-sm">Amazon product links</p>
-                            </div>
-                            <div class="funnel-step bg-green-300 p-5 text-center w-[80%] mx-auto">
-                                <p class="font-bold">Digital Product (Tripwire)</p>
-                                <p class="text-sm">₹199 Kickstart Plan</p>
-                            </div>
-                            <div class="funnel-step bg-green-400 p-6 text-center w-[70%] mx-auto">
-                                <p class="font-bold">Digital Product (Core)</p>
-                                <p class="text-sm">₹499-₹999 eBook</p>
-                            </div>
-                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">1. Start Your Day with Warm Jeera Water</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            Before you reach for tea or coffee, drink a glass of warm water infused with cumin seeds (jeera). This simple practice is a game-changer for PCOS. Jeera is known to kick-start your metabolism, improve insulin sensitivity, and significantly reduce bloating. It cleanses your system and prepares it for the day.
+                        </p>
+                        <p class="mt-2 text-sm brand-tan italic"><strong>How to:</strong> Soak 1 tsp of jeera in a glass of water overnight. In the morning, boil it for 5 minutes, strain, and drink warm.</p>
                     </div>
+
+                    <!-- Tip 2 -->
                     <div>
-                         <h3 class="text-2xl font-bold brand-green mb-4 text-center">Sample Revenue Potential</h3>
-                         <div class="chart-container">
-                             <canvas id="monetizationChart"></canvas>
-                         </div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">2. Follow the Dinacharya (Ayurvedic Daily Routine)</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            PCOS is a lifestyle disorder, and Ayurveda emphasizes syncing your body with nature's rhythms. A consistent daily routine (Dinacharya) calms the Vata dosha, which is often aggravated in hormonal imbalances. This brings stability and predictability to your body, helping regulate hormones and reduce stress.
+                        </p>
+                         <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                            <li><strong>Wake up:</strong> Aim to wake before 6 AM (sunrise).</li>
+                            <li><strong>Breakfast:</strong> Have a light, warm breakfast before 8 AM.</li>
+                            <li><strong>Lunch:</strong> Your largest meal should be between 12-1 PM when your digestive fire is strongest.</li>
+                            <li><strong>Dinner:</strong> A light, easy-to-digest dinner before 7 PM.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tip 3 -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">3. Eat Warm, Cooked, and Nourishing Foods</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            In Ayurveda, a weak digestive fire (Manda Agni) is a root cause of many diseases, including PCOS. Cold, raw foods (like salads and smoothies) can dampen this fire. Instead, focus on warm, well-cooked meals. They are easier for your body to digest and absorb nutrients from, preventing the buildup of toxins (Ama).
+                        </p>
+                        <p class="mt-2 text-sm brand-tan italic"><strong>Choose:</strong> Wholesome khichdi, vegetable soups, steamed or sautéed veggies, and cooked grains like quinoa and basmati rice.</p>
+                    </div>
+                    
+                    <!-- Tip 4 -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">4. Include Key Ayurvedic Herbs</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            Herbs are nature's medicine. Certain Ayurvedic herbs are renowned for their ability to support female hormonal health. They work by reducing stress, supporting reproductive organs, and improving metabolic function.
+                        </p>
+                        <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                            <li><strong>Ashwagandha:</strong> An adaptogen that helps your body manage stress and lowers cortisol levels (a key driver of PCOS belly fat).</li>
+                            <li><strong>Shatavari:</strong> Known as the "queen of herbs" for female health, it nourishes the reproductive system and supports hormonal balance.</li>
+                            <li><strong>Triphala:</strong> A gentle detoxifier that aids digestion and relieves constipation, helping to clear toxins from the body.</li>
+                        </ul>
+                        <p class="mt-2 text-xs text-red-700"><em>*Always consult an Ayurvedic practitioner before starting new herbs.</em></p>
+                    </div>
+
+                    <!-- Tip 5 -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">5. Minimize Cold Dairy & Refined Sugar</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                           Cold dairy products (like milkshakes, ice cream, and even cold curd) and refined sugar can increase Kapha dosha. In PCOS, an excess of Kapha can lead to weight gain, cysts, and lethargy. Reducing these helps lighten the load on your system.
+                        </p>
+                        <p class="mt-2 text-sm brand-tan italic"><strong>Instead:</strong> Opt for warm herbal teas like ginger or cinnamon tea. If you have dairy, have it warm and spiced with a pinch of turmeric or ginger.</p>
+                    </div>
+
+                    <!-- Tip 6 -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">6. Practice PCOS-Friendly Yoga Asanas</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            Gentle, targeted movement is crucial. Unlike high-intensity workouts that can spike cortisol, specific yoga poses help improve blood flow to the pelvic region, reduce stress, and support hormone regulation. Aim for just 20-30 minutes each day.
+                        </p>
+                        <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                           <li><strong>Baddha Konasana (Butterfly Pose):</strong> Opens up the hips and supports ovarian function.</li>
+                           <li><strong>Malasana (Garland Pose):</strong> Strengthens the pelvic floor and aids digestion.</li>
+                           <li><strong>Surya Namaskar (Sun Salutation):</strong> A full-body workout that improves circulation and energy.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tip 7 -->
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold brand-green mb-3">7. Prioritize Sleep & Weekly Oil Massage (Abhyanga)</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            Healing happens when you rest. Sleeping by 10 PM aligns with the body's natural detoxification cycle. Furthermore, a weekly self-massage with warm oil (Abhyanga) is a profound act of self-care. It calms the nervous system, nourishes the skin, improves circulation, and helps mobilize stubborn fat.
+                        </p>
+                        <p class="mt-2 text-sm brand-tan italic"><strong>How to:</strong> Gently warm up some sesame or coconut oil. Massage it all over your body before a warm shower. It's a deeply grounding practice.</p>
                     </div>
                 </div>
-            </section>
-        </main>
+
+                <!-- Horizontal Divider -->
+                <hr class="my-12 border-t-2 brand-border" />
+
+                <!-- Bonus: Free PDF Section -->
+                <section id="printable-section" class="bg-emerald-50 rounded-lg p-6 sm:p-8 shadow-inner border-2 border-dashed brand-border">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold brand-green mb-2">🌿 Your FREE Ayurvedic PCOS Diet Chart</h3>
+                        <p class="text-gray-600 mb-6">A simple guide to eating for hormonal balance. Save this image or print it for your kitchen!</p>
+                    </div>
+                    
+                    <!-- Diet Chart Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="py-3 px-4 bg-green-200 text-green-800 font-bold uppercase text-sm rounded-tl-lg">Meal</th>
+                                    <th class="py-3 px-4 bg-green-200 text-green-800 font-bold uppercase text-sm">What to Eat</th>
+                                    <th class="py-3 px-4 bg-green-200 text-green-800 font-bold uppercase text-sm rounded-tr-lg">What to Avoid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-green-200">
+                                    <td class="py-3 px-4 font-bold brand-green">Early Morning (6-7 AM)</td>
+                                    <td class="py-3 px-4 text-gray-700">Warm Jeera/Cinnamon water</td>
+                                    <td class="py-3 px-4 text-gray-700">Cold water, Bed tea/coffee</td>
+                                </tr>
+                                <tr class="border-b border-green-200">
+                                    <td class="py-3 px-4 font-bold brand-green">Breakfast (8-9 AM)</td>
+                                    <td class="py-3 px-4 text-gray-700">Moong dal cheela, Vegetable poha, Warm oatmeal with cinnamon</td>
+                                    <td class="py-3 px-4 text-gray-700">Bread, Cold milk/smoothies, Packaged cereals</td>
+                                </tr>
+                                <tr class="border-b border-green-200">
+                                    <td class="py-3 px-4 font-bold brand-green">Lunch (12-1 PM)</td>
+                                    <td class="py-3 px-4 text-gray-700">Basmati rice, Dal, Cooked seasonal vegetables (sabzi), a small bowl of salad</td>
+                                    <td class="py-3 px-4 text-gray-700">Heavy meats, Cold curd, Fried foods</td>
+                                </tr>
+                                <tr class="border-b border-green-200">
+                                    <td class="py-3 px-4 font-bold brand-green">Evening Snack (4-5 PM)</td>
+                                    <td class="py-3 px-4 text-gray-700">Herbal tea, Roasted makhana (fox nuts), A handful of soaked almonds</td>
+                                    <td class="py-3 px-4 text-gray-700">Biscuits, Chips, Sugary drinks, Coffee</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 font-bold brand-green rounded-bl-lg">Dinner (Before 7:30 PM)</td>
+                                    <td class="py-3 px-4 text-gray-700">Vegetable soup, Khichdi, Quinoa with steamed vegetables</td>
+                                    <td class="py-3 px-4 text-gray-700">Heavy meals, Rice, Curd, Rajma/Chole</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="text-center mt-6 no-print">
+                        <button onclick="window.print()" class="cta-button bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800">
+                            🖨️ Print or Save as PDF
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Conclusion -->
+                <div class="mt-12 text-center">
+                    <h3 class="text-2xl font-bold brand-green mb-4">Your Journey to Balance Begins Now</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Remember, healing PCOS isn't about drastic measures; it's about creating small, consistent, and loving habits. Each Ayurvedic tip is a step towards reclaiming your hormonal health. Start with one or two that resonate most, and build from there. Your body has an incredible capacity to heal. 🌺
+                    </p>
+                    
+                    <!-- Call to Action (CTA) -->
+                    <div class="bg-gray-100 rounded-lg p-6">
+                        <h4 class="font-bold text-xl text-gray-800">Want More?</h4>
+                        <p class="text-gray-600 mt-2 mb-4">Subscribe to our newsletter for more Ayurvedic tips, recipes, and get a FREE 7-Day Hormonal Reset Plan!</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-2">
+                            <input type="email" placeholder="Enter your email" class="w-full sm:w-auto flex-grow p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button class="cta-button brand-bg-green text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90">Subscribe Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
     </div>
 
-<script>
-    const appData = {
-        phase1: [
-            { title: "Connect to Google Search Console (GSC)", details: "Go to Google Search Console, log in, add your blog's URL (`https://www.pcosayurveda.com`), and complete the easy verification process through Blogger." },
-            { title: "Connect to Google Analytics 4 (GA4)", details: "Go to Google Analytics, create a new account, get your 'Measurement ID' (e.g., G-XXXXXXXXXX), and paste it into your Blogger Settings under 'Google Analytics Measurement ID'." },
-            { title: "Submit Your Sitemap to GSC", details: "In your GSC account, go to Indexing > Sitemaps. Under 'Add a new sitemap,' type `sitemap.xml` and click Submit. This helps Google find all your pages." },
-            { title: "Optimize Core Blog Settings", details: "In Blogger Settings, set your Title to 'PcosAyurveda.com: Natural Weight Loss & Hormonal Balance' and paste this description: 'Guiding Indian women to naturally manage PCOS, lose weight, and balance hormones with proven Ayurvedic remedies, diet charts, and wellness tips.' Ensure 'Visible to search engines' is ON." }
-        ],
-        phase2_spokes: [
-            { title: "Shatavari for PCOS: How This Herb Fights Cysts", keyword: "shatavari for pcos", monetization: "Affiliate link to trusted Shatavari brand on Amazon." },
-            { title: "5 Ayurvedic Drinks for PCOS Belly Fat", keyword: "pcos belly fat remedy", monetization: "Affiliate links to cinnamon, jeera, copper bottles." },
-            { title: "The 15-Min PCOS Yoga Routine", keyword: "yoga for hormonal balance", monetization: "Affiliate links to mats, blocks. Sell a '30-Day Yoga Challenge' PDF." },
-            { title: "The Ultimate Indian Khichdi Recipe for PCOS", keyword: "indian diet for pcos", monetization: "Sell a '7-Day Ayurvedic PCOS Meal Plan' PDF on Gumroad." },
-            { title: "How to Stop PCOS Hair Fall: An Ayurvedic Guide", keyword: "pcos hair fall remedy ayurveda", monetization: "Affiliate links to Bhringraj oil and supplements." }
-        ]
-    };
-
-    const phase1Container = document.getElementById('foundation-checklist');
-    appData.phase1.forEach(task => {
-        const taskElement = document.createElement('div');
-        taskElement.className = 'border rounded-lg p-4';
-        taskElement.innerHTML = `
-            <details>
-                <summary class="flex items-center cursor-pointer">
-                    <input type="checkbox" class="task-checkbox mr-4 flex-shrink-0">
-                    <span class="font-bold flex-grow">${task.title}</span>
-                    <span class="details-marker text-green-700 font-bold transform transition-transform duration-200">&#9654;</span>
-                </summary>
-                <div class="mt-3 pt-3 border-t text-gray-600">
-                    <p><strong>Action:</strong> ${task.details}</p>
-                </div>
-            </details>
-        `;
-        phase1Container.appendChild(taskElement);
-    });
-
-    const phase2Container = document.querySelector('#phase2 .grid');
-    appData.phase2_spokes.forEach(spoke => {
-        const spokeElement = document.createElement('div');
-        spokeElement.className = 'spoke-card bg-white p-5 rounded-lg shadow-md';
-        spokeElement.innerHTML = `
-            <h4 class="font-bold brand-green text-lg">${spoke.title}</h4>
-            <p class="text-sm mt-2"><strong class="brand-tan">Target Keyword:</strong> "${spoke.keyword}"</p>
-            <p class="text-sm mt-1"><strong class="brand-tan">Monetization:</strong> ${spoke.monetization}</p>
-        `;
-        phase2Container.appendChild(spokeElement);
-    });
-    
-    const navBar = document.getElementById('nav-bar');
-    const contentSections = document.querySelectorAll('.phase-content');
-    let monetizationChartInstance = null;
-
-    navBar.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            const targetPhase = e.target.dataset.phase;
-
-            navBar.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-
-            contentSections.forEach(section => {
-                section.style.display = section.id === targetPhase ? 'block' : 'none';
-            });
-            
-            if (targetPhase === 'phase4') {
-                renderMonetizationChart();
-            }
-        }
-    });
-    
-    function renderMonetizationChart() {
-        const ctx = document.getElementById('monetizationChart').getContext('2d');
-        if (monetizationChartInstance) {
-            monetizationChartInstance.destroy();
-        }
-        monetizationChartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Affiliate Sales', 'Tripwire Product', 'Core eBook'],
-                datasets: [{
-                    label: 'Potential Monthly Revenue (₹)',
-                    data: [3000, 7500, 20000],
-                    backgroundColor: ['#a7d7a9', '#73b976', '#3a5a40'],
-                    borderColor: ['#3A5A40'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return ` Est. Revenue: ₹${context.raw.toLocaleString('en-IN')}`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                         ticks: {
-                            callback: function(value, index, values) {
-                                return '₹' + value / 1000 + 'k';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Initialize with Phase 1 visible
-    document.addEventListener('DOMContentLoaded', () => {
-        navBar.querySelector('button[data-phase="phase1"]').click();
-    });
-
-</script>
 </body>
 </html>
