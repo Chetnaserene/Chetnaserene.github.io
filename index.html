@@ -3,274 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AyurShape: Interactive Guide to Ayurvedic Herbs</title>
+    <title>AyurShape: Ayurveda, Blog & Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Earthy Wellness -->
-    <!-- Application Structure Plan: The application is designed as an interactive guide, moving beyond a linear blog post. It uses a master-detail layout. A persistent vertical navigation menu (the "master") lists the five herbs. Selecting an herb updates the main content area (the "detail") to show its benefits and uses. A comparative chart is included to provide a data visualization layer. This structure was chosen to empower users to directly access the information they're most interested in, encouraging exploration rather than passive reading. -->
-    <!-- Visualization & Content Choices: 
-        - Herb List (Report Info) -> Goal: Organize/Navigate -> Viz: Vertical Tab Navigator (HTML/CSS/JS) -> Interaction: Click to update main content and highlight chart bar -> Justification: Provides a clear, intuitive navigation hub for the app's content.
-        - Herb Benefits & Uses (Report Info) -> Goal: Inform -> Viz: Themed Content Cards (HTML/Tailwind) -> Interaction: Dynamically displayed based on herb selection -> Justification: Clearly separates theoretical benefits from practical advice for better comprehension.
-        - Comparative Benefits (Synthesized Data) -> Goal: Compare/Inform -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Bar highlights on herb selection -> Justification: Translates the qualitative benefits from the text into a quantitative, easy-to-compare visual format, adding analytical value.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 40vh;
-        }
-        .nav-item.active {
-            background-color: #4A5C3D;
-            color: #FDFBF7;
-            transform: translateX(4px);
-        }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .active-link { background: #4A5C3D; color: #FDFBF7; }
     </style>
 </head>
 <body class="bg-[#FDFBF7] text-[#3D352E]">
 
-    <div class="container mx-auto px-4 py-8">
-        
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#4A5C3D] mb-4">Your Kitchen, Your Apothecary 🌿</h1>
-            <p class="max-w-3xl mx-auto text-lg text-[#6B5B4B]">
-                Embarking on a weight loss journey can feel overwhelming. Ayurveda, the ancient Indian system of medicine, teaches that nature provides powerful tools for balancing the body. This guide introduces five common kitchen herbs celebrated for their ability to support natural, sustainable weight management.
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/80 backdrop-blur shadow z-40">
+        <div class="container mx-auto flex items-center justify-between px-4 py-3">
+            <a href="#home" class="text-2xl font-bold text-[#4A5C3D]">AyurShape</a>
+            <ul class="flex space-x-6 font-semibold">
+                <li><a href="#home" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Home</a></li>
+                <li><a href="#blog" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Blog</a></li>
+                <li><a href="#portfolio" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-24" id="home">
+        <!-- Landing Section -->
+        <header class="text-center mb-16 pt-16">
+            <h1 class="text-5xl font-bold text-[#4A5C3D] mb-4">Your Kitchen, Your Apothecary 🌿</h1>
+            <p class="max-w-2xl mx-auto text-lg text-[#6B5B4B]">
+                Embark on a journey of wellness with Ayurveda! Discover the ancient secrets of herbs, read insightful articles, and explore my Ayurvedic projects and credentials.
             </p>
         </header>
-
-        <main class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <aside class="lg:col-span-1">
-                <nav id="herb-nav" class="sticky top-8 bg-white/60 p-4 rounded-2xl shadow-md border border-gray-200/50">
-                    <h2 class="font-bold text-lg text-[#4A5C3D] mb-3 px-2">Choose an Herb</h2>
-                    <ul class="space-y-2"></ul>
-                </nav>
-            </aside>
-
-            <section id="herb-details" class="lg:col-span-3 min-h-[500px]">
-                <!-- Herb details will be dynamically injected here -->
-            </section>
-
-        </main>
-
-        <section id="comparison-section" class="mt-16 bg-white/60 p-6 rounded-2xl shadow-lg border border-gray-200/50">
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold text-[#4A5C3D]">Herbal Properties at a Glance</h2>
-                <p class="max-w-2xl mx-auto text-md text-[#6B5B4B] mt-2">
-                    While all these herbs support wellness, they have different strengths. This chart offers a simplified comparison of their primary benefits. Select an herb from the navigation to see its properties highlighted below.
-                </p>
+        <!-- Featured Herbs Cards (optional, or keep as intro) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            <div class="bg-white/80 p-6 rounded-xl shadow border">
+                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Turmeric ✨</h2>
+                <p class="text-[#6B5B4B]">The golden anti-inflammatory herb used for healing and vitality.</p>
             </div>
-            <div class="chart-container">
-                <canvas id="herb-comparison-chart"></canvas>
+            <div class="bg-white/80 p-6 rounded-xl shadow border">
+                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Ginger 🔥</h2>
+                <p class="text-[#6B5B4B]">Boosts metabolism and aids digestion for a balanced life.</p>
+            </div>
+            <div class="bg-white/80 p-6 rounded-xl shadow border">
+                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Cinnamon 🪵</h2>
+                <p class="text-[#6B5B4B]">Balances blood sugar and adds warmth to your kitchen.</p>
             </div>
         </section>
-
-        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
-             <h2 class="text-3xl font-bold text-[#4A5C3D]">Small Steps, Big Impact</h2>
-            <p class="max-w-3xl mx-auto text-lg text-[#6B5B4B] mt-4">
-                Incorporating these simple, accessible herbs into your daily routine is an easy way to support your body's natural ability to find balance. Remember, Ayurvedic wellness is not about quick fixes, but about creating sustainable habits that nourish you from the inside out.
-            </p>
-        </footer>
-
     </div>
 
+    <!-- Blog Section -->
+    <section id="blog" class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-[#4A5C3D] mb-8 text-center">Blog</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Example Blog Post -->
+            <article class="bg-white/80 p-6 rounded-xl shadow border">
+                <h3 class="text-2xl font-bold mb-2">Why Ayurveda Works for Modern Wellness</h3>
+                <p class="text-[#6B5B4B] mb-2">Discover how ancient Ayurvedic principles are more relevant than ever for today’s hectic lifestyle.</p>
+                <span class="text-sm text-[#A8B3A0]">Posted: July 2025</span>
+            </article>
+            <!-- Another Blog Post -->
+            <article class="bg-white/80 p-6 rounded-xl shadow border">
+                <h3 class="text-2xl font-bold mb-2">Top 5 Herbs for Weight Balance</h3>
+                <p class="text-[#6B5B4B] mb-2">Explore five powerful herbs that support metabolism, digestion, and holistic balance.</p>
+                <span class="text-sm text-[#A8B3A0]">Posted: June 2025</span>
+            </article>
+            <!-- Add more articles as needed -->
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-[#4A5C3D] mb-8 text-center">Portfolio</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Example Portfolio Item -->
+            <div class="bg-white/80 p-6 rounded-xl shadow border">
+                <h3 class="text-2xl font-bold mb-2">Interactive Ayurvedic Herb Guide</h3>
+                <p class="text-[#6B5B4B] mb-2">A web tool to explore and compare traditional herbs for health and wellness.</p>
+                <a href="https://chetnaserene.github.io/ayurvedic.github.io/" class="text-[#4A5C3D] underline font-semibold">View Project</a>
+            </div>
+            <div class="bg-white/80 p-6 rounded-xl shadow border">
+                <h3 class="text-2xl font-bold mb-2">AyurShape Certification</h3>
+                <p class="text-[#6B5B4B] mb-2">Certified in Ayurvedic Nutrition and Herbalism, 2024.</p>
+                <a href="#" class="text-[#4A5C3D] underline font-semibold">See Credential</a>
+            </div>
+            <!-- Add more portfolio items as needed -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center mt-16 py-8 border-t border-gray-200">
+        <h2 class="text-3xl font-bold text-[#4A5C3D]">Stay Connected</h2>
+        <p class="max-w-3xl mx-auto text-lg text-[#6B5B4B] mt-4">
+            Follow me for more Ayurvedic wisdom and updates.<br>
+            <a href="mailto:your@email.com" class="underline text-[#4A5C3D]">Contact</a> |
+            <a href="https://www.linkedin.com/" class="underline text-[#4A5C3D]">LinkedIn</a>
+        </p>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const herbData = {
-                'Turmeric': {
-                    icon: '✨',
-                    tagline: 'The Golden Anti-Inflammatory',
-                    helps: 'Turmeric helps improve insulin sensitivity, which is crucial for metabolizing sugar and preventing fat storage. Its active compound, curcumin, also aids in reducing inflammation often associated with obesity and metabolic syndrome.',
-                    usage: 'Add a teaspoon to warm milk for a soothing "golden latte," sprinkle it into smoothies, or add it to roasted vegetables and soups.',
-                    chartData: [8, 5, 6]
-                },
-                'Cinnamon': {
-                    icon: '🪵',
-                    tagline: 'The Blood Sugar Balancer',
-                    helps: 'Cinnamon helps lower blood sugar by mimicking insulin and increasing glucose uptake by your cells. Stable blood sugar levels mean fewer energy crashes and reduced cravings for sugary snacks.',
-                    usage: 'Stir it into your morning coffee or tea, sprinkle it on oatmeal or yogurt, or add it to fruit salads for a natural touch of sweetness.',
-                    chartData: [4, 9, 7]
-                },
-                'Ginger': {
-                    icon: '🔥',
-                    tagline: 'The Metabolic Fire-Starter',
-                    helps: 'Ginger boosts your metabolism and enhances the thermic effect of food (the calories your body burns during digestion). It also acts as a natural appetite suppressant, helping you feel fuller for longer.',
-                    usage: 'Start your day with a cup of fresh ginger tea (steep sliced ginger in hot water with a squeeze of lemon). You can also add grated ginger to stir-fries, soups, and marinades.',
-                    chartData: [9, 8, 3]
-                },
-                'Cumin': {
-                    icon: '🌿',
-                    tagline: 'The Digestive Dynamo',
-                    helps: 'Cumin stimulates the secretion of pancreatic enzymes, which are necessary for proper digestion and nutrient absorption. A healthy digestive system works more efficiently, preventing bloating and the buildup of toxins (ama) that can hinder weight loss.',
-                    usage: 'A popular Ayurvedic method is to drink cumin water. Soak a teaspoon of cumin seeds in water overnight, then boil and sip it throughout the day. You can also toast the seeds and add them to salads, lentils, and vegetable dishes.',
-                    chartData: [5, 10, 4]
-                },
-                'Black Pepper': {
-                    icon: '🌶️',
-                    tagline: 'The Bioavailability Booster',
-                    helps: 'Black pepper contains piperine, a compound that boosts your metabolism and enhances the bioavailability of other nutrients, including the curcumin in turmeric (making them a powerful pair!). It also helps prevent the formation of new fat cells.',
-                    usage: 'Simply add freshly ground black pepper to your meals. It pairs well with almost any savory dish, from salads and soups to grilled meats and vegetables.',
-                    chartData: [7, 6, 2]
-                }
-            };
-
-            const navContainer = document.querySelector('#herb-nav ul');
-            const detailsContainer = document.getElementById('herb-details');
-            const chartCanvas = document.getElementById('herb-comparison-chart');
-            let comparisonChart;
-
-            const renderNav = () => {
-                Object.keys(herbData).forEach(name => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <button class="nav-item w-full text-left px-3 py-2 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-[#A8B3A0] hover:text-white" data-herb="${name}">
-                            <span class="text-xl mr-2">${herbData[name].icon}</span>
-                            ${name}
-                        </button>
-                    `;
-                    navContainer.appendChild(li);
-                });
-            };
-            
-            const renderDetails = (herbName) => {
-                const data = herbData[herbName];
-                detailsContainer.innerHTML = `
-                    <div class="bg-white/60 p-6 rounded-2xl shadow-lg border border-gray-200/50 animate-fade-in">
-                        <h2 class="text-3xl font-bold text-[#4A5C3D] mb-2">${data.icon} ${herbName}</h2>
-                        <p class="text-lg text-[#6B5B4B] font-medium mb-6">${data.tagline}</p>
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-xl font-bold text-[#4A5C3D] mb-2">How It Helps</h3>
-                                <p class="text-base text-[#3D352E] leading-relaxed">${data.helps}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-[#4A5C3D] mb-2">How To Use</h3>
-                                <p class="text-base text-[#3D352E] leading-relaxed">${data.usage}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                 // Add a fade-in animation class
-                setTimeout(() => {
-                    const el = detailsContainer.firstElementChild;
-                    if(el) el.style.opacity = 1;
-                }, 10);
-            };
-
-            const updateActiveNav = (herbName) => {
-                document.querySelectorAll('.nav-item').forEach(btn => {
-                    if (btn.dataset.herb === herbName) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            };
-            
-            const renderChart = (highlightedHerb = null) => {
-                const datasets = Object.keys(herbData).map((herb, index) => {
-                    const isHighlighted = herb === highlightedHerb;
-                    return {
-                        label: herb,
-                        data: herbData[herb].chartData,
-                        backgroundColor: isHighlighted ? '#4A5C3D' : '#A8B3A0',
-                        borderColor: isHighlighted ? '#3D352E' : '#9aa493',
-                        borderWidth: 1,
-                    };
-                });
-
-                if (comparisonChart) {
-                    comparisonChart.destroy();
-                }
-
-                comparisonChart = new Chart(chartCanvas, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Metabolic Boost', 'Digestive Aid', 'Blood Sugar Balance'],
-                        datasets: datasets
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                enabled: true,
-                                bodyFont: { size: 14, family: 'Inter' },
-                                titleFont: { size: 16, family: 'Inter' },
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: {
-                                    drawOnChartArea: false,
-                                    borderColor: 'rgba(0,0,0,0)'
-                                },
-                                ticks: {
-                                    display: false
-                                }
-                            },
-                            y: {
-                                grid: {
-                                     borderColor: 'rgba(0,0,0,0)'
-                                },
-                                ticks: {
-                                    color: '#3D352E',
-                                    font: {
-                                        size: 14,
-                                        weight: '500'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            };
-
-            navContainer.addEventListener('click', (e) => {
-                const button = e.target.closest('.nav-item');
-                if (button) {
-                    const herbName = button.dataset.herb;
-                    renderDetails(herbName);
-                    updateActiveNav(herbName);
-                    renderChart(herbName);
+        // Simple scrollspy to highlight nav links
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('nav ul li a');
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 80;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
                 }
             });
-
-            // Initial setup
-            const initialHerb = Object.keys(herbData)[0];
-            renderNav();
-            renderDetails(initialHerb);
-            updateActiveNav(initialHerb);
-            renderChart(initialHerb);
-            
-            // For animation
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes fade-in {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active-link');
                 }
-                .animate-fade-in {
-                    animation: fade-in 0.5s ease-out forwards;
-                    opacity: 0;
-                }
-            `;
-            document.head.appendChild(style);
+            });
         });
     </script>
 </body>
