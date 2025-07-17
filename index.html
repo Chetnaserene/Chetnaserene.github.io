@@ -1,123 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AyurShape: Ayurveda, Blog & Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .active-link { background: #4A5C3D; color: #FDFBF7; }
-    </style>
+  <meta charset="UTF-8">
+  <title>AyurShape: Interactive Ayurvedic Herb Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover the power of Ayurvedic herbs with AyurShape! Interactive, informative, and positive vibes for everyone.">
+  <meta name="keywords" content="Ayurveda, Ayurvedic Herbs, Herbal Guide, Wellness, Holistic, Positive Vibes">
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="AyurShape: Interactive Ayurvedic Herb Guide">
+  <meta property="og:description" content="Discover the power of Ayurvedic herbs with AyurShape!">
+  <meta property="og:image" content="https://chetnaserene.github.io/assets/hero-ayurveda.jpg">
+  <meta property="og:url" content="https://chetnaserene.github.io">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f6f7f2 0%, #e0ffe3 100%);
+      margin: 0;
+      padding: 0;
+      color: #27583e;
+    }
+    header {
+      background: #5fd068;
+      color: white;
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+    }
+    h1 {
+      margin-bottom: 0.3em;
+      font-size: 2.4em;
+    }
+    h2 {
+      color: #388e3c;
+    }
+    .positive-vibes {
+      background: #fffbe7;
+      margin: 2rem auto 1rem auto;
+      padding: 1em 1.5em;
+      border-radius: 1.2em;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 14px -6px #aaa;
+      text-align: center;
+    }
+    .herbs-section {
+      margin: 2rem auto;
+      max-width: 700px;
+      background: #fff;
+      padding: 2em;
+      border-radius: 1em;
+      box-shadow: 0 6px 20px -8px #b9e4c9;
+    }
+    .herb-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5em;
+      margin: 2em 0 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .herb-card {
+      flex: 1 1 200px;
+      background: #f1ffe8;
+      padding: 1em;
+      border-radius: 0.8em;
+      box-shadow: 0 2px 10px -4px #b9e4c9;
+      min-width: 160px;
+    }
+    .herb-card h3 {
+      margin-top: 0;
+      color: #388e3c;
+    }
+    .copilot-section {
+      text-align: center;
+      margin: 2rem auto;
+    }
+    .copilot-section button {
+      background: #5fd068;
+      color: white;
+      border: none;
+      padding: 1em 2em;
+      border-radius: 2em;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .copilot-section button:hover {
+      background: #388e3c;
+    }
+    @media (max-width: 600px) {
+      .herbs-section { padding: 1em; }
+      .herb-card { min-width: 130px; }
+    }
+  </style>
 </head>
-<body class="bg-[#FDFBF7] text-[#3D352E]">
+<body>
+  <header>
+    <h1>AyurShape</h1>
+    <p>🌿 Interactive Guide to Ayurvedic Herbs</p>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white/80 backdrop-blur shadow z-40">
-        <div class="container mx-auto flex items-center justify-between px-4 py-3">
-            <a href="#home" class="text-2xl font-bold text-[#4A5C3D]">AyurShape</a>
-            <ul class="flex space-x-6 font-semibold">
-                <li><a href="#home" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Home</a></li>
-                <li><a href="#blog" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Blog</a></li>
-                <li><a href="#portfolio" class="px-3 py-2 rounded-xl hover:bg-[#A8B3A0]">Portfolio</a></li>
-            </ul>
-        </div>
-    </nav>
+  <div class="positive-vibes">
+    <h2>🌟 Positive Vibes Corner</h2>
+    <p id="quote"></p>
+  </div>
 
-    <div class="container mx-auto px-4 py-24" id="home">
-        <!-- Landing Section -->
-        <header class="text-center mb-16 pt-16">
-            <h1 class="text-5xl font-bold text-[#4A5C3D] mb-4">Your Kitchen, Your Apothecary 🌿</h1>
-            <p class="max-w-2xl mx-auto text-lg text-[#6B5B4B]">
-                Embark on a journey of wellness with Ayurveda! Discover the ancient secrets of herbs, read insightful articles, and explore my Ayurvedic projects and credentials.
-            </p>
-        </header>
-        <!-- Featured Herbs Cards (optional, or keep as intro) -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-            <div class="bg-white/80 p-6 rounded-xl shadow border">
-                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Turmeric ✨</h2>
-                <p class="text-[#6B5B4B]">The golden anti-inflammatory herb used for healing and vitality.</p>
-            </div>
-            <div class="bg-white/80 p-6 rounded-xl shadow border">
-                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Ginger 🔥</h2>
-                <p class="text-[#6B5B4B]">Boosts metabolism and aids digestion for a balanced life.</p>
-            </div>
-            <div class="bg-white/80 p-6 rounded-xl shadow border">
-                <h2 class="text-xl font-bold text-[#4A5C3D] mb-2">Cinnamon 🪵</h2>
-                <p class="text-[#6B5B4B]">Balances blood sugar and adds warmth to your kitchen.</p>
-            </div>
-        </section>
+  <section class="herbs-section">
+    <h2>Popular Ayurvedic Herbs</h2>
+    <ul class="herb-list">
+      <li class="herb-card">
+        <h3>Ashwagandha</h3>
+        <p>Boosts energy, reduces stress, and supports overall wellness.</p>
+      </li>
+      <li class="herb-card">
+        <h3>Turmeric</h3>
+        <p>Powerful anti-inflammatory and antioxidant properties.</p>
+      </li>
+      <li class="herb-card">
+        <h3>Tulsi (Holy Basil)</h3>
+        <p>Known for its immune-boosting and adaptogenic effects.</p>
+      </li>
+      <li class="herb-card">
+        <h3>Brahmi</h3>
+        <p>Enhances cognitive function and mental clarity.</p>
+      </li>
+      <!-- Add more herbs as needed -->
+    </ul>
+  </section>
+
+  <section class="copilot-section">
+    <h2>🤖 AyurShape Copilot</h2>
+    <p>Need help or more info? Ask our AI Copilot for Ayurvedic wisdom!</p>
+    <!-- Replace the following script with your actual Copilot or chatbot widget code -->
+    <button onclick="openCopilotChat()">Chat with Copilot</button>
+    <div id="copilot-widget" style="display:none; margin-top:1em;">
+      <!-- Example placeholder. Replace with real widget script. -->
+      <iframe src="https://widgetgpt.com/embed/YOUR_WIDGET_ID" width="350" height="430" style="border:0; border-radius:1em;"></iframe>
     </div>
+  </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-bold text-[#4A5C3D] mb-8 text-center">Blog</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Example Blog Post -->
-            <article class="bg-white/80 p-6 rounded-xl shadow border">
-                <h3 class="text-2xl font-bold mb-2">Why Ayurveda Works for Modern Wellness</h3>
-                <p class="text-[#6B5B4B] mb-2">Discover how ancient Ayurvedic principles are more relevant than ever for today’s hectic lifestyle.</p>
-                <span class="text-sm text-[#A8B3A0]">Posted: July 2025</span>
-            </article>
-            <!-- Another Blog Post -->
-            <article class="bg-white/80 p-6 rounded-xl shadow border">
-                <h3 class="text-2xl font-bold mb-2">Top 5 Herbs for Weight Balance</h3>
-                <p class="text-[#6B5B4B] mb-2">Explore five powerful herbs that support metabolism, digestion, and holistic balance.</p>
-                <span class="text-sm text-[#A8B3A0]">Posted: June 2025</span>
-            </article>
-            <!-- Add more articles as needed -->
-        </div>
-    </section>
+  <footer style="text-align:center; padding:2em 0; color:#999;">
+    &copy; 2025 AyurShape by Chetnaserene. Wellness for everyone!
+  </footer>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-bold text-[#4A5C3D] mb-8 text-center">Portfolio</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Example Portfolio Item -->
-            <div class="bg-white/80 p-6 rounded-xl shadow border">
-                <h3 class="text-2xl font-bold mb-2">Interactive Ayurvedic Herb Guide</h3>
-                <p class="text-[#6B5B4B] mb-2">A web tool to explore and compare traditional herbs for health and wellness.</p>
-                <a href="https://chetnaserene.github.io/ayurvedic.github.io/" class="text-[#4A5C3D] underline font-semibold">View Project</a>
-            </div>
-            <div class="bg-white/80 p-6 rounded-xl shadow border">
-                <h3 class="text-2xl font-bold mb-2">AyurShape Certification</h3>
-                <p class="text-[#6B5B4B] mb-2">Certified in Ayurvedic Nutrition and Herbalism, 2024.</p>
-                <a href="#" class="text-[#4A5C3D] underline font-semibold">See Credential</a>
-            </div>
-            <!-- Add more portfolio items as needed -->
-        </div>
-    </section>
+  <script>
+    // Positive vibes quotes
+    const quotes = [
+      "Embrace wellness, embrace life 🌱",
+      "Every herb is a step to a healthier you!",
+      "Let nature heal and inspire you.",
+      "Start your day with positive energy!",
+      "Wellness is a journey, not a destination."
+    ];
+    document.getElementById('quote').innerText = quotes[Math.floor(Math.random()*quotes.length)];
 
-    <!-- Footer -->
-    <footer class="text-center mt-16 py-8 border-t border-gray-200">
-        <h2 class="text-3xl font-bold text-[#4A5C3D]">Stay Connected</h2>
-        <p class="max-w-3xl mx-auto text-lg text-[#6B5B4B] mt-4">
-            Follow me for more Ayurvedic wisdom and updates.<br>
-            <a href="mailto:your@email.com" class="underline text-[#4A5C3D]">Contact</a> |
-            <a href="https://www.linkedin.com/" class="underline text-[#4A5C3D]">LinkedIn</a>
-        </p>
-    </footer>
-
-    <script>
-        // Simple scrollspy to highlight nav links
-        const sections = document.querySelectorAll('section, header');
-        const navLinks = document.querySelectorAll('nav ul li a');
-        window.addEventListener('scroll', () => {
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 80;
-                if (pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active-link');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active-link');
-                }
-            });
-        });
-    </script>
+    // Copilot button logic
+    function openCopilotChat() {
+      document.getElementById('copilot-widget').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
